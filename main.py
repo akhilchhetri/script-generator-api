@@ -104,6 +104,37 @@ async def syllabus_update(request: Request):
         return {"success": False, "error": e}
 
 
+@app.patch("/script/update")
+async def script_update(request: Request):
+    try:
+        data = await request.json()
+        response = requests.patch(base_api + "/script/update", json=data)
+        print("this is response", response.json())
+        if response.status_code == 200:
+            res = response.json()
+            return res
+        else:
+            return {"message": "Api call failed", "code": "500", "type": "error"}
+    except Exception as e:
+        return {"success": False, "error": e}
+
+
+@app.patch("/qna/update")
+async def script_update(request: Request):
+    try:
+        data = await request.json()
+        response = requests.patch(base_api + "/qna/update", json=data)
+        print("this is response", response.json())
+
+        if response.status_code == 200:
+            res = response.json()
+            return res
+        else:
+            return {"message": "Api call failed", "code": "500", "type": "error"}
+    except Exception as e:
+        return {"success": False, "error": e}
+
+
 async def upload_file(contents, file):
     async with httpx.AsyncClient() as client:
         files = {
