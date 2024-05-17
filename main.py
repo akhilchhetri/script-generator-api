@@ -72,6 +72,25 @@ async def script_generate(request: Request):
         return {"success": False, "error": e}
 
 
+@app.get("/syllabus/get")
+async def get_syllabus(document_id):
+    try:
+        params = {
+            "language": "British English",
+        }
+        response = requests.get(
+            base_api + f"/syllabus/get/{document_id}",
+        )
+        print("this is response", response.json())
+        if response.status_code == 200:
+            res = response.json()
+            return res
+        else:
+            return {"message": "Api call failed", "code": "500", "type": "error"}
+    except Exception as e:
+        return {"success": False, "error": e}
+
+
 @app.post("/script/qna/generate")
 async def qna_generate(request: Request):
     try:
